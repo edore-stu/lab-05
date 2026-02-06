@@ -2,8 +2,10 @@ package com.example.lab5_starter;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
     private Button addCityButton;
     private Button remCityButton;
     private ListView cityListView;
+
 
     private ArrayList<City> cityArrayList;
     private ArrayAdapter<City> cityArrayAdapter;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
         addCityButton = findViewById(R.id.buttonAddCity);
         cityListView = findViewById(R.id.listviewCities);
         remCityButton = findViewById(R.id.buttonRemoveCity);
+
 
         // create city array
         cityArrayList = new ArrayList<>();
@@ -113,11 +117,18 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
     }
 
     @Override
-    public void remCity(City city){
-        cityArrayList.remove(city);
+    public void remCity(String title){
+        int position = 0;
+        for (int i = 0; i < cityArrayList.size(); i++){
+            if (cityArrayList.get(i).getName() == title){
+                 position = i;
+            }
+        }
+        City cityToRem = cityArrayList.get(position);
+        cityArrayList.remove(position);
         cityArrayAdapter.notifyDataSetChanged();
 
-        DocumentReference docRef = citiesRef.document(city.getName());
+        DocumentReference docRef = citiesRef.document(cityToRem.getName());
         docRef.delete();
     }
 

@@ -15,5 +15,6 @@
         android:hint="Enter province"
         android:id="@+id/edit_province"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="visible"/>
 </LinearLayout>
